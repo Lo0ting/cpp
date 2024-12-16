@@ -1,4 +1,5 @@
-#define NOMINMAX // Уникнення конфлікту макросу max з std::max
+#define NOMINMAX  
+// Уникнення конфлікту макросу max з std::max
 #include <iostream>
 #include <string>
 #include <locale>
@@ -25,10 +26,10 @@ int getValidInt(const string& prompt) {
         if (cin.fail()) {
             cout << "Помилка вводу. Спробуйте ще раз." << endl;
             cin.clear();
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); #<---
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //<-----
         }
         else {
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); #<--- 
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //<----- 
             return value;
         }
     }
@@ -43,10 +44,10 @@ bool getValidBool(const string& prompt) {
         if (cin.fail() || (value != 0 && value != 1)) {
             cout << "Помилка вводу. Введіть 1 (так) або 0 (ні)." << endl;
             cin.clear();
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');#<--- 
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//<--- 
         }
         else {
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');#<--- 
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');//<--- 
             return value;
         }
     }
