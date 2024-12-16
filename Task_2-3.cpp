@@ -1,8 +1,8 @@
-// Завдання 1: Демонстрація значень змінних у C++
+#define NOMINMAX // Уникнення конфлікту макросу max з std::max
 #include <iostream>
 #include <string>
 #include <locale>
-#include <windows.h> // Додано для вирішення проблеми із символами , були закарлючки в терміналі
+#include <windows.h> // Додано для вирішення проблеми із символами
 using namespace std;
 
 void task1_cpp() {
@@ -16,6 +16,42 @@ void task1_cpp() {
     cout << "char c = '" << c << "'" << endl;
 }
 
+// Функція для перевірки вводу цілого числа
+int getValidInt(const string& prompt) {
+    int value;
+    while (true) {
+        cout << prompt;
+        cin >> value;
+        if (cin.fail()) {
+            cout << "Помилка вводу. Спробуйте ще раз." << endl;
+            cin.clear();
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); #<---
+        }
+        else {
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); #<--- 
+            return value;
+        }
+    }
+}
+
+// Функція для перевірки вводу логічного значення (1 або 0)
+bool getValidBool(const string& prompt) {
+    int value;
+    while (true) {
+        cout << prompt;
+        cin >> value;
+        if (cin.fail() || (value != 0 && value != 1)) {
+            cout << "Помилка вводу. Введіть 1 (так) або 0 (ні)." << endl;
+            cin.clear();
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');#<--- 
+        }
+        else {
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');#<--- 
+            return value;
+        }
+    }
+}
+
 // Завдання 2: Введення та виведення даних для кількох користувачів у C++
 void task2_cpp() {
     struct User {
@@ -25,22 +61,18 @@ void task2_cpp() {
         bool isStudent;
     };
 
-    int n;
-    cout << "Скільки користувачів? ";
-    cin >> n;
+    int n = getValidInt("Скільки користувачів? ");
 
     User* users = new User[n];
 
     for (int i = 0; i < n; i++) {
         cout << "\nКористувач " << i + 1 << ":" << endl;
         cout << "Ім'я: ";
-        cin >> users[i].firstName;
+        getline(cin, users[i].firstName);
         cout << "Прізвище: ";
-        cin >> users[i].lastName;
-        cout << "Вік: ";
-        cin >> users[i].age;
-        cout << "Студент (1 - так, 0 - ні): ";
-        cin >> users[i].isStudent;
+        getline(cin, users[i].lastName);
+        users[i].age = getValidInt("Вік: ");
+        users[i].isStudent = getValidBool("Студент (1 - так, 0 - ні): ");
     }
 
     cout << "\nІнформація про користувачів:" << endl;
