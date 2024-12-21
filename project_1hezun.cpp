@@ -1,5 +1,5 @@
-
-#include <iostream>
+#include <iostream>  
+#include <algorithm>//<==== фікс проблеми *min_element(yValues.begin() тобто потрібна бібліотека
 #include <cmath>
 #include <string>
 #include <vector>
